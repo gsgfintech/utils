@@ -14,5 +14,19 @@ namespace Net.Teirlinck.Utils
 
             return dt.AddSeconds(unixTimeStamp).ToLocalTime();
         }
+
+        public static DateTime GetFivePmYesterday()
+        {
+            DateTime today = DateTime.Today;
+
+            DateTime fivePm = new DateTime(today.Year, today.Month, today.Day, 17, 0, 0);
+
+            TimeZoneInfo estTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            TimeSpan offset = estTz.GetUtcOffset(fivePm);
+
+            DateTimeOffset dto = new DateTimeOffset(fivePm, offset);
+
+            return dto.LocalDateTime;
+        }
     }
 }
