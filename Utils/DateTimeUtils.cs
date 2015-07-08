@@ -4,6 +4,33 @@ namespace Net.Teirlinck.Utils
 {
     public static class DateTimeUtils
     {
+        private static ITimeProvider timeProvider;
+        public static ITimeProvider TimeProvider
+        {
+            get
+            {
+                if (timeProvider == null)
+                    timeProvider = new CurrentTimeProvider();
+
+                return timeProvider;
+            }
+
+            set
+            {
+                timeProvider = value;
+            }
+        }
+
+        public static DateTime Now()
+        {
+            return TimeProvider.Now();
+        }
+
+        public static DateTime Today()
+        {
+            return TimeProvider.Now().Date;
+        }
+
         public static DateTime GetFromUnixTimeStamp(long unixTimeStamp)
         {
             DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -13,7 +40,7 @@ namespace Net.Teirlinck.Utils
 
         public static DateTime GetFivePmYesterday()
         {
-            DateTime today = DateTime.Today;
+            DateTime today = Today().ToUniversalTime();
 
             DateTime fivePm = new DateTime(today.Year, today.Month, today.Day, 17, 0, 0);
 
@@ -22,7 +49,7 @@ namespace Net.Teirlinck.Utils
 
             DateTimeOffset dto = new DateTimeOffset(fivePm, offset);
 
-            if (dto.LocalDateTime > DateTime.Now)
+            if (dto.LocalDateTime > Now())
                 dto = dto.AddDays(-1);
 
             return dto.LocalDateTime;
