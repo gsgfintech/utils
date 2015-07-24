@@ -6,17 +6,24 @@ namespace Net.Teirlinck.Utils
     {
         public static bool IsProcessListening(string host, int port)
         {
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            try
             {
-                try
+                using (TcpClient client = new TcpClient(host, port))
                 {
-                    socket.Connect(host, port);
-                    return true;
+                    bool connStatus = client.Connected;
+
+                    if (connStatus)
+                    {
+                        client.GetStream().Close();
+                        client.Close();
+                    }
+
+                    return connStatus;
                 }
-                catch
-                {
-                    return false;
-                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }
