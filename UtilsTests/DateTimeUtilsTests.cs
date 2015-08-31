@@ -104,5 +104,17 @@ namespace UtilsTests
         {
             SetCurrentTime(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hours, minutes, seconds));
         }
+
+        [TestMethod]
+        public void TestGetTradingDayBoundaries()
+        {
+            DateTime january = new DateTime(2015, 1, 15);
+
+            Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(january).Item1.Hour == 5);
+
+            DateTime july = new DateTime(2015, 7, 15);
+
+            Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(july).Item1.Hour == 6);
+        }
     }
 }

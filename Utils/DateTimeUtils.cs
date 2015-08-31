@@ -74,5 +74,22 @@ namespace Net.Teirlinck.Utils
             else
                 return false;
         }
+
+        /// <summary>
+        /// Gets the lower (item1) and upper (item2) boundaries of a trading date specified in HKT. Starts at 5am in summer and 6 am in winter
+        /// </summary>
+        /// <param name="dateInHKT"></param>
+        /// <returns></returns>
+        public static Tuple<DateTime, DateTime> GetTradingDayBoundaries(DateTime dateInHKT)
+        {
+            DateTime date = dateInHKT.Date;
+
+            TimeZoneInfo estTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+            if (estTz.IsDaylightSavingTime(date)) // winter - 6am HKT
+                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local)).AddDays(1));
+            else // summer - 5am HKT
+                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 5, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 5, 0, 0, DateTimeKind.Local)).AddDays(1));
+        }
     }
 }
