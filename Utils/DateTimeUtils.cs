@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Net.Teirlinck.Utils
 {
@@ -66,6 +67,18 @@ namespace Net.Teirlinck.Utils
                 return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local)).AddDays(1));
             else // summer - 5am HKT
                 return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 5, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 5, 0, 0, DateTimeKind.Local)).AddDays(1));
+        }
+
+        /// <summary>
+        /// This method takes a date range (with a lower bound and an upper bound) and returns an IEnumerable<DateTime> containing each day in the range
+        /// </summary>
+        /// <param name="from">The lower bound</param>
+        /// <param name="thru">The upper bound</param>
+        /// <returns>An IEnumerable<DateTime> containing each day in the range</returns>
+        public static IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
         }
     }
 }
