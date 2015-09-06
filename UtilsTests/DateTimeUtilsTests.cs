@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Net.Teirlinck.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UtilsTests
 {
@@ -91,6 +93,17 @@ namespace UtilsTests
             DateTime july = new DateTime(2015, 7, 15);
 
             Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(july).Item1.Hour == 6);
+        }
+
+        [TestMethod]
+        public void TestEachDay()
+        {
+            DateTime lower = DateTime.Today.AddDays(-7);
+            DateTime upper = DateTime.Today;
+
+            IEnumerable<DateTime> days = DateTimeUtils.EachDay(lower, upper);
+
+            Assert.IsTrue(days?.Count() == 8);
         }
     }
 }
