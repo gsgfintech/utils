@@ -88,11 +88,11 @@ namespace UtilsTests
         {
             DateTime january = new DateTime(2015, 1, 15);
 
-            Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(january).Item1.Hour == 5);
+            Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(january).Item1.Hour == 6);
 
             DateTime july = new DateTime(2015, 7, 15);
 
-            Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(july).Item1.Hour == 6);
+            Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(july).Item1.Hour == 5);
         }
 
         [TestMethod]
