@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayUtils.cs" />
     <Compile Include="CollectionUtils.cs" />
     <Compile Include="DateTimeUtils.cs" />
     <Compile Include="EmailUtils.cs" />

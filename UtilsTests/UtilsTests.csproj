@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ArrayUtilsTests.cs" />
     <Compile Include="DateTimeUtilsTests.cs" />
     <Compile Include="LambdaEqualityComparerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
