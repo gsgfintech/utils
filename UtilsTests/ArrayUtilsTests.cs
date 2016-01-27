@@ -16,7 +16,7 @@ namespace UtilsTests
         {
             int[] data = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-            // Good case
+            // Good case 1
             try
             {
                 int[] sub = data.SubArray(3, 4); // contains {3,4,5,6}
@@ -24,6 +24,20 @@ namespace UtilsTests
                 Assert.IsTrue(sub.Length == 4);
                 Assert.IsTrue(sub[0] == 3);
                 Assert.IsTrue(sub[3] == 6);
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+
+            // Good case 2
+            try
+            {
+                int[] sub = data.SubArray(4); // contains {4,5,6,7,8,9}
+
+                Assert.IsTrue(sub.Length == 6);
+                Assert.IsTrue(sub[0] == 4);
+                Assert.IsTrue(sub[5] == 9);
             }
             catch (ArgumentException ex)
             {
@@ -57,7 +71,7 @@ namespace UtilsTests
             // Bad case: length
             try
             {
-                int[] sub = data.SubArray(3, 7);
+                int[] sub = data.SubArray(3, 8);
 
                 Assert.Fail();
             }
