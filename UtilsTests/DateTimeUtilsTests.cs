@@ -89,10 +89,12 @@ namespace UtilsTests
             DateTime january = new DateTime(2015, 1, 15);
 
             Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(january).Item1.Hour == 6);
+            Assert.IsTrue(DateTimeUtils.GetNzdTradingDayBoundaries(january).Item1.Hour == 2);
 
             DateTime july = new DateTime(2015, 7, 15);
 
             Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(july).Item1.Hour == 5);
+            Assert.IsTrue(DateTimeUtils.GetNzdTradingDayBoundaries(july).Item1.Hour == 3);
         }
 
         [TestMethod]

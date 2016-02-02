@@ -70,6 +70,23 @@ namespace Net.Teirlinck.Utils
         }
 
         /// <summary>
+        /// Gets the lower (item1) and upper (item2) boundaries of a NZD trading date specified in HKT. Starts at 2am in HK winter and 3am in HK summer
+        /// </summary>
+        /// <param name="dateInHKT"></param>
+        /// <returns></returns>
+        public static Tuple<DateTime, DateTime> GetNzdTradingDayBoundaries(DateTime dateInHKT)
+        {
+            DateTime date = dateInHKT.Date;
+
+            TimeZoneInfo nzstTz = TimeZoneInfo.FindSystemTimeZoneById("New Zealand Standard Time");
+
+            if (nzstTz.IsDaylightSavingTime(date)) // NZ summer / HK winter - 2am HKT
+                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 2, 0, 0, DateTimeKind.Local)).AddDays(1));
+            else // NZ winter / HK summer - 3am HKT
+                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 3, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 3, 0, 0, DateTimeKind.Local)).AddDays(1));
+        }
+
+        /// <summary>
         /// This method takes a date range (with a lower bound and an upper bound) and returns an IEnumerable<DateTime> containing each day in the range
         /// </summary>
         /// <param name="from">The lower bound</param>
