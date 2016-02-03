@@ -80,5 +80,22 @@ namespace UtilsTests
                 Assert.IsTrue(ex.Message == "length");
             }
         }
+
+        [TestMethod]
+        public void TestSubArray2()
+        {
+            double[] test = new double[21] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN };
+
+            int firstMark = 10;
+            int secondMark = 20;
+
+            Assert.IsTrue(test.SubArray(1, firstMark).Length == 10);
+            Assert.IsTrue(test.SubArray(1, firstMark)[0] == 1);
+            Assert.IsTrue(test.SubArray(1, firstMark)[9] == 10);
+
+            Assert.IsTrue(test.SubArray(1, secondMark).Length == 20);
+            Assert.IsTrue(test.SubArray(1, secondMark)[0] == 1);
+            Assert.IsTrue(double.IsNaN(test.SubArray(1, secondMark)[19]));
+        }
     }
 }
