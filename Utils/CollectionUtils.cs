@@ -42,4 +42,23 @@ namespace Net.Teirlinck.Utils
             return ((enumerable != null) && (enumerable.Count<T>() >= largerThan));
         }
     }
+
+    public static class DictionaryUtils
+    {
+        public static T TryGetValue<T>(this Dictionary<string, T> dict, string key)
+        {
+            return dict.TryGetValue<T>(key, default(T));
+        }
+
+        public static T TryGetValue<T>(this Dictionary<string, T> dict, string key, T defaultVal)
+        {
+            if (string.IsNullOrEmpty(key))
+                return defaultVal;
+
+            if (dict == null || !dict.ContainsKey(key))
+                return defaultVal;
+
+            return dict[key];
+        }
+    }
 }
