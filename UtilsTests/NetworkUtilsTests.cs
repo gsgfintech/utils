@@ -10,8 +10,8 @@ namespace UtilsTests
         [TestMethod]
         public void TestIsProcessListening()
         {
-            // 1. Test something that exists (FXMonitorQA)
-            string host = "gsg-dev-1.gsg.capital";
+            // 1. Test something that exists (FXMonitor)
+            string host = "tryphon.gsg.capital";
             int port = 11000;
 
             bool socketStatus = NetworkUtils.IsProcessListening(host, port);
