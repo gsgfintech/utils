@@ -41,6 +41,27 @@ namespace Net.Teirlinck.Utils
         {
             return ((enumerable != null) && (enumerable.Count<T>() >= largerThan));
         }
+
+        public static Queue<T> ToSortedQueue<T>(this List<T> list, IComparer<T> sortComparer = null)
+        {
+            if (list == null)
+                return null;
+
+            if (list.Count == 0)
+                return new Queue<T>();
+
+            if (sortComparer == null)
+                list.Sort();
+            else
+                list.Sort(sortComparer);
+
+            Queue<T> queue = new Queue<T>();
+
+            foreach (var item in list)
+                queue.Enqueue(item);
+
+            return queue;
+        }
     }
 
     public static class DictionaryUtils
