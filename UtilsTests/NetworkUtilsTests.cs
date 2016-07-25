@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Net.Teirlinck.Utils;
 
 namespace UtilsTests
@@ -7,6 +6,7 @@ namespace UtilsTests
     [TestClass]
     public class NetworkUtilsTests
     {
+        [Ignore]
         [TestMethod]
         public void TestIsProcessListening()
         {
