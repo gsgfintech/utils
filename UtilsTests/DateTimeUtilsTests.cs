@@ -107,5 +107,36 @@ namespace UtilsTests
 
             Assert.IsTrue(days?.Count() == 8);
         }
+
+        [TestMethod]
+        public void TestFloor()
+        {
+            DateTime date = new DateTime(2016, 7, 25, 7, 58, 45, 654);
+            TimeSpan span = new TimeSpan(0, 0, 1);
+
+            Assert.IsTrue(date.Floor(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
+        }
+
+        [TestMethod]
+        public void TestRound()
+        {
+            DateTime date = new DateTime(2016, 7, 25, 7, 58, 45, 654);
+            TimeSpan span = new TimeSpan(0, 0, 1);
+
+            Assert.IsTrue(date.Round(span) == new DateTime(2016, 7, 25, 7, 58, 46, 0));
+
+            date = new DateTime(2016, 7, 25, 7, 58, 45, 454);
+
+            Assert.IsTrue(date.Round(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
+        }
+
+        [TestMethod]
+        public void TestCeiling()
+        {
+            DateTime date = new DateTime(2016, 7, 25, 7, 58, 45, 454);
+            TimeSpan span = new TimeSpan(0, 0, 1);
+
+            Assert.IsTrue(date.Ceiling(span) == new DateTime(2016, 7, 25, 7, 58, 46, 0));
+        }
     }
 }

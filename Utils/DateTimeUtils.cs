@@ -97,5 +97,52 @@ namespace Net.Teirlinck.Utils
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
         }
+
+        /// <summary>
+        /// Floors the date to the nearest unit defined by span
+        /// eg: span = TimeSpan(0, 0, 1) // 1 second
+        /// => will return date floored to 1 second
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="span"></param>
+        /// <returns></returns>
+        public static DateTime Floor(this DateTime date, TimeSpan span)
+        {
+            long ticks = date.Ticks / span.Ticks;
+
+            return new DateTime(ticks * span.Ticks);
+        }
+
+
+        /// <summary>
+        /// Rounds (up to midpoint) the date to the nearest unit defined by span
+        /// eg: span = TimeSpan(0, 0, 1) // 1 second
+        /// => will return date rounded to 1 second
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="span"></param>
+        /// <returns></returns>
+        public static DateTime Round(this DateTime date, TimeSpan span)
+        {
+            long ticks = (date.Ticks + (span.Ticks / 2) + 1) / span.Ticks;
+
+            return new DateTime(ticks * span.Ticks);
+        }
+
+
+        /// <summary>
+        /// Ceils the date to the nearest unit defined by span
+        /// eg: span = TimeSpan(0, 0, 1) // 1 second
+        /// => will return date ceiled to 1 second
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="span"></param>
+        /// <returns></returns>
+        public static DateTime Ceiling(this DateTime date, TimeSpan span)
+        {
+            long ticks = (date.Ticks + span.Ticks - 1) / span.Ticks;
+
+            return new DateTime(ticks * span.Ticks);
+        }
     }
 }
