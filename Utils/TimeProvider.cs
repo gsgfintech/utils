@@ -1,5 +1,4 @@
-﻿using log4net;
-using System;
+﻿using System;
 
 namespace Net.Teirlinck.Utils
 {
@@ -16,8 +15,6 @@ namespace Net.Teirlinck.Utils
 
     public class SystemTimeProvider : ITimeProvider
     {
-        private static ILog logger = LogManager.GetLogger(nameof(SystemTimeProvider));
-
         public DateTime Now()
         {
             return DateTime.Now;
@@ -30,12 +27,12 @@ namespace Net.Teirlinck.Utils
 
         public void SetCurrentTime(DateTime time)
         {
-            logger.Debug($"Not implemented for {nameof(SystemTimeProvider)}");
+            throw new NotImplementedException($"Not implemented for {nameof(SystemTimeProvider)}");
         }
 
         public void SetCurrentTime(int year, int month, int day, int hours, int minutes = 0, int seconds = 0)
         {
-            logger.Debug($"Not implemented for {nameof(SystemTimeProvider)}");
+            throw new NotImplementedException($"Not implemented for {nameof(SystemTimeProvider)}");
         }
     }
 
