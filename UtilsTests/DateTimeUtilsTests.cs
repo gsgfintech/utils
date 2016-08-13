@@ -17,47 +17,47 @@ namespace UtilsTests
 
             TimeZoneInfo easternTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"); // used to run check on the time
 
-            DateTimeOffset dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
+            DateTime dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
             Assert.IsNotNull(dt);
 
             // Test for edge case: between 12am and 5am local time
-            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 1, new TimeSpan(8, 0, 0));
+            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 1, 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
-            Assert.IsTrue(dt.ToLocalTime().Date == timeProvider.Today().AddDays(-1).Date, "Testing GetFivePmYesterday with current time set to 1am: expect 5pm date to be on the previous HKT date");
+            Assert.IsTrue(dt.Date == timeProvider.Today().AddDays(-1).Date, "Testing GetFivePmYesterday with current time set to 1am: expect 5pm date to be on the previous HKT date");
 
             if (easternTz.IsDaylightSavingTime(timeProvider.Now()))
-                Assert.IsTrue(dt.ToLocalTime().Hour == 5, "Currently EDT. Expect 5pm EDT = 5am HKT");
+                Assert.IsTrue(dt.Hour == 5, "Currently EDT. Expect 5pm EDT = 5am HKT");
             else
-                Assert.IsTrue(dt.ToLocalTime().Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
+                Assert.IsTrue(dt.Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
 
             // Test for between 5am to 11:59pm local time
-            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, new TimeSpan(8, 0, 0));
+            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
-            Assert.IsTrue(dt.ToLocalTime().Date == timeProvider.Today().Date, "Testing GetFivePmYesterday with current time set to 1pm: expect 5pm date to be on the current HKT date");
+            Assert.IsTrue(dt.Date == timeProvider.Today().Date, "Testing GetFivePmYesterday with current time set to 1pm: expect 5pm date to be on the current HKT date");
 
             if (easternTz.IsDaylightSavingTime(timeProvider.Now()))
-                Assert.IsTrue(dt.ToLocalTime().Hour == 5, "Currently EDT. Expect 5pm EDT = 5am HKT");
+                Assert.IsTrue(dt.Hour == 5, "Currently EDT. Expect 5pm EDT = 5am HKT");
             else
-                Assert.IsTrue(dt.ToLocalTime().Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
+                Assert.IsTrue(dt.Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
 
             // Test in winter (Dec 15th)
-            timeProvider.SetCurrentTime(DateTime.Now.Year, 12, 15, 13, new TimeSpan(8, 0, 0));
+            timeProvider.SetCurrentTime(DateTime.Now.Year, 12, 15, 13, 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
-            Assert.IsTrue(dt.ToLocalTime().Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
+            Assert.IsTrue(dt.Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
 
             // Test in summer (June 15th)
-            timeProvider.SetCurrentTime(DateTime.Now.Year, 6, 15, 13, new TimeSpan(8, 0, 0));
+            timeProvider.SetCurrentTime(DateTime.Now.Year, 6, 15, 13, 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
-            Assert.IsTrue(dt.ToLocalTime().Hour == 5, "Currently EDT. Expect 5pm EDT = 5am HKT");
+            Assert.IsTrue(dt.Hour == 5, "Currently EDT. Expect 5pm EDT = 5am HKT");
         }
 
         [TestMethod]
@@ -87,12 +87,12 @@ namespace UtilsTests
         [TestMethod]
         public void TestGetTradingDayBoundaries()
         {
-            DateTimeOffset january = new DateTimeOffset(2015, 1, 15, 0, 0, 0, new TimeSpan(8, 0, 0));
+            DateTime january = new DateTime(2015, 1, 15);
 
             Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(january).Item1.Hour == 6);
             Assert.IsTrue(DateTimeUtils.GetNzdTradingDayBoundaries(january).Item1.Hour == 2);
 
-            DateTimeOffset july = new DateTimeOffset(2015, 7, 15, 0, 0, 0, new TimeSpan(8, 0, 0));
+            DateTime july = new DateTime(2015, 7, 15);
 
             Assert.IsTrue(DateTimeUtils.GetTradingDayBoundaries(july).Item1.Hour == 5);
             Assert.IsTrue(DateTimeUtils.GetNzdTradingDayBoundaries(july).Item1.Hour == 3);
