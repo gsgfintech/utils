@@ -12,12 +12,12 @@ namespace Net.Teirlinck.Utils
             return dt.AddSeconds(unixTimeStamp).ToLocalTime();
         }
 
-        public static DateTime GetFivePmYesterday(ITimeProvider timeProvider = null)
+        public static DateTimeOffset GetFivePmYesterday(ITimeProvider timeProvider = null)
         {
             if (timeProvider == null)
                 timeProvider = new SystemTimeProvider();
 
-            DateTime today = timeProvider.Today().ToUniversalTime();
+            DateTimeOffset today = timeProvider.Today().ToUniversalTime();
 
             DateTime fivePm = new DateTime(today.Year, today.Month, today.Day, 17, 0, 0);
 
@@ -29,7 +29,7 @@ namespace Net.Teirlinck.Utils
             if (dto.LocalDateTime > timeProvider.Now())
                 dto = dto.AddDays(-1);
 
-            return dto.LocalDateTime;
+            return dto;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Net.Teirlinck.Utils
         /// <param name="ts2">The second datetime</param>
         /// <param name="maxDiffMs">The maximum difference allowed, in  milliseconds</param>
         /// <returns></returns>
-        public static bool HaveSameTimeStamp(DateTime ts1, DateTime ts2, double maxDiffMs)
+        public static bool HaveSameTimeStamp(DateTimeOffset ts1, DateTimeOffset ts2, double maxDiffMs)
         {
             if (ts1 == ts2)
                 return true;
@@ -57,16 +57,16 @@ namespace Net.Teirlinck.Utils
         /// </summary>
         /// <param name="dateInHKT"></param>
         /// <returns></returns>
-        public static Tuple<DateTime, DateTime> GetTradingDayBoundaries(DateTime dateInHKT)
+        public static Tuple<DateTimeOffset, DateTimeOffset> GetTradingDayBoundaries(DateTimeOffset dateInHKT)
         {
             DateTime date = dateInHKT.Date;
 
             TimeZoneInfo estTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
             if (estTz.IsDaylightSavingTime(date)) // summer - 5am HKT
-                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 5, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 5, 0, 0, DateTimeKind.Local)).AddDays(1));
+                return new Tuple<DateTimeOffset, DateTimeOffset>(new DateTimeOffset(date.Year, date.Month, date.Day, 5, 0, 0, new TimeSpan(8, 0, 0)), (new DateTimeOffset(date.Year, date.Month, date.Day, 5, 0, 0, new TimeSpan(8, 0, 0))).AddDays(1));
             else // winter - 6am HKT
-                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local)).AddDays(1));
+                return new Tuple<DateTimeOffset, DateTimeOffset>(new DateTimeOffset(date.Year, date.Month, date.Day, 6, 0, 0, new TimeSpan(8, 0, 0)), (new DateTimeOffset(date.Year, date.Month, date.Day, 6, 0, 0, new TimeSpan(8, 0, 0))).AddDays(1));
         }
 
         /// <summary>
@@ -74,16 +74,16 @@ namespace Net.Teirlinck.Utils
         /// </summary>
         /// <param name="dateInHKT"></param>
         /// <returns></returns>
-        public static Tuple<DateTime, DateTime> GetNzdTradingDayBoundaries(DateTime dateInHKT)
+        public static Tuple<DateTimeOffset, DateTimeOffset> GetNzdTradingDayBoundaries(DateTimeOffset dateInHKT)
         {
             DateTime date = dateInHKT.Date;
 
             TimeZoneInfo nzstTz = TimeZoneInfo.FindSystemTimeZoneById("New Zealand Standard Time");
 
             if (nzstTz.IsDaylightSavingTime(date)) // NZ summer / HK winter - 2am HKT
-                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 2, 0, 0, DateTimeKind.Local)).AddDays(1));
+                return new Tuple<DateTimeOffset, DateTimeOffset>(new DateTimeOffset(date.Year, date.Month, date.Day, 2, 0, 0, new TimeSpan(8, 0, 0)), (new DateTimeOffset(date.Year, date.Month, date.Day, 2, 0, 0, new TimeSpan(8, 0, 0))).AddDays(1));
             else // NZ winter / HK summer - 3am HKT
-                return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 3, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 3, 0, 0, DateTimeKind.Local)).AddDays(1));
+                return new Tuple<DateTimeOffset, DateTimeOffset>(new DateTimeOffset(date.Year, date.Month, date.Day, 3, 0, 0, new TimeSpan(8, 0, 0)), (new DateTimeOffset(date.Year, date.Month, date.Day, 3, 0, 0, new TimeSpan(8, 0, 0))).AddDays(1));
         }
 
         /// <summary>
