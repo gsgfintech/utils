@@ -69,6 +69,18 @@ namespace Net.Teirlinck.Utils
                 return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 6, 0, 0, DateTimeKind.Local)).AddDays(1));
         }
 
+        public static Tuple<DateTimeOffset, DateTimeOffset> GetTradingDayBoundariesDateTimeOffset(DateTime dateInHKT)
+        {
+            DateTime startDate = dateInHKT.Date.AddDays(-1); // The "trading day" begins at 5pm NYT on the day before. eg: TD 23AUG begins at 22AUG 5pm EDT
+            DateTime endDate = dateInHKT.Date;
+
+            TimeZoneInfo estTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+            return new Tuple<DateTimeOffset, DateTimeOffset>(
+                new DateTimeOffset(startDate.Year, startDate.Month, startDate.Day, 17, 0, 0, estTz.GetUtcOffset(startDate)),
+                new DateTimeOffset(endDate.Year, endDate.Month, endDate.Day, 17, 0, 0, estTz.GetUtcOffset(endDate)));
+        }
+
         /// <summary>
         /// Gets the lower (item1) and upper (item2) boundaries of a NZD trading date specified in HKT. Starts at 2am in HK winter and 3am in HK summer
         /// </summary>
@@ -84,6 +96,19 @@ namespace Net.Teirlinck.Utils
                 return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 2, 0, 0, DateTimeKind.Local)).AddDays(1));
             else // NZ winter / HK summer - 3am HKT
                 return new Tuple<DateTime, DateTime>(new DateTime(date.Year, date.Month, date.Day, 3, 0, 0, DateTimeKind.Local), (new DateTime(date.Year, date.Month, date.Day, 3, 0, 0, DateTimeKind.Local)).AddDays(1));
+        }
+
+        public static Tuple<DateTimeOffset, DateTimeOffset> GetNzdTradingDayBoundariesDateTimeOffset(DateTime dateInHKT)
+        {
+            DateTime startDate = dateInHKT.Date;
+            DateTime endDate = dateInHKT.Date.AddDays(1);
+
+            TimeZoneInfo nzstTz = TimeZoneInfo.FindSystemTimeZoneById("New Zealand Standard Time");
+
+            // NZD rolls at 7am Auckland time
+            return new Tuple<DateTimeOffset, DateTimeOffset>(
+                new DateTimeOffset(startDate.Year, startDate.Month, startDate.Day, 7, 0, 0, nzstTz.GetUtcOffset(startDate)),
+                new DateTimeOffset(endDate.Year, endDate.Month, endDate.Day, 7, 0, 0, nzstTz.GetUtcOffset(endDate)));
         }
 
         /// <summary>

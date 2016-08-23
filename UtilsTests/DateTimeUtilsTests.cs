@@ -99,6 +99,34 @@ namespace UtilsTests
         }
 
         [TestMethod]
+        public void TestGetTradingDayBoundariesDateTimeOffset()
+        {
+            DateTime january = new DateTime(2015, 1, 15);
+
+            var boundaries = DateTimeUtils.GetTradingDayBoundariesDateTimeOffset(january);
+
+            Assert.IsTrue(boundaries.Item1.Offset == TimeSpan.FromHours(-5));
+            Assert.IsTrue(boundaries.Item1.ToLocalTime().Hour == 6);
+
+            boundaries = DateTimeUtils.GetNzdTradingDayBoundariesDateTimeOffset(january);
+
+            Assert.IsTrue(boundaries.Item1.Offset == TimeSpan.FromHours(13));
+            Assert.IsTrue(boundaries.Item1.ToLocalTime().Hour == 2);
+
+            DateTime july = new DateTime(2015, 7, 15);
+
+            boundaries = DateTimeUtils.GetTradingDayBoundariesDateTimeOffset(july);
+
+            Assert.IsTrue(boundaries.Item1.Offset == TimeSpan.FromHours(-4));
+            Assert.IsTrue(boundaries.Item1.ToLocalTime().Hour == 5);
+
+            boundaries = DateTimeUtils.GetNzdTradingDayBoundariesDateTimeOffset(july);
+
+            Assert.IsTrue(boundaries.Item1.Offset == TimeSpan.FromHours(12));
+            Assert.IsTrue(boundaries.Item1.ToLocalTime().Hour == 3);
+        }
+
+        [TestMethod]
         public void TestEachDay()
         {
             DateTime lower = DateTime.Today.AddDays(-7);
