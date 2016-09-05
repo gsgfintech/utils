@@ -154,6 +154,12 @@ namespace Net.Teirlinck.Utils
             return new DateTime(ticks * span.Ticks);
         }
 
+        public static DateTimeOffset Round(this DateTimeOffset date, TimeSpan span)
+        {
+            long ticks = (date.Ticks + (span.Ticks / 2) + 1) / span.Ticks;
+
+            return new DateTimeOffset(ticks * span.Ticks, date.Offset);
+        }
 
         /// <summary>
         /// Ceils the date to the nearest unit defined by span

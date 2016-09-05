@@ -147,7 +147,7 @@ namespace UtilsTests
         }
 
         [TestMethod]
-        public void TestRound()
+        public void TestRoun()
         {
             DateTime date = new DateTime(2016, 7, 25, 7, 58, 45, 654);
             TimeSpan span = new TimeSpan(0, 0, 1);
@@ -157,6 +157,14 @@ namespace UtilsTests
             date = new DateTime(2016, 7, 25, 7, 58, 45, 454);
 
             Assert.IsTrue(date.Round(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
+
+            DateTimeOffset dto = new DateTimeOffset(2016, 7, 25, 7, 58, 45, 654, TimeSpan.FromHours(8));
+
+            Assert.IsTrue(dto.Round(span) == new DateTimeOffset(2016, 7, 25, 7, 58, 46, 0, TimeSpan.FromHours(8)));
+
+            dto = new DateTimeOffset(2016, 7, 25, 7, 58, 45, 454, TimeSpan.FromHours(8));
+
+            Assert.IsTrue(dto.Round(span) == new DateTimeOffset(2016, 7, 25, 7, 58, 45, 0, TimeSpan.FromHours(8)));
         }
 
         [TestMethod]
