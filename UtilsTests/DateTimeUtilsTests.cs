@@ -22,7 +22,7 @@ namespace UtilsTests
             Assert.IsNotNull(dt);
 
             // Test for edge case: between 12am and 5am local time
-            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 1, 0, 0);
+            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 1, TimeSpan.FromHours(8), 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
@@ -34,7 +34,7 @@ namespace UtilsTests
                 Assert.IsTrue(dt.Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
 
             // Test for between 5am to 11:59pm local time
-            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 0, 0);
+            timeProvider.SetCurrentTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, TimeSpan.FromHours(8), 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
@@ -46,14 +46,14 @@ namespace UtilsTests
                 Assert.IsTrue(dt.Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
 
             // Test in winter (Dec 15th)
-            timeProvider.SetCurrentTime(DateTime.Now.Year, 12, 15, 13, 0, 0);
+            timeProvider.SetCurrentTime(DateTime.Now.Year, 12, 15, 13, TimeSpan.FromHours(8), 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
             Assert.IsTrue(dt.Hour == 6, "Currently EDT. Expect 5pm EDT = 5am HKT");
 
             // Test in summer (June 15th)
-            timeProvider.SetCurrentTime(DateTime.Now.Year, 6, 15, 13, 0, 0);
+            timeProvider.SetCurrentTime(DateTime.Now.Year, 6, 15, 13, TimeSpan.FromHours(8), 0, 0);
 
             dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 

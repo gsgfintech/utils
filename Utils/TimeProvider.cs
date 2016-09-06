@@ -4,20 +4,20 @@ namespace Net.Teirlinck.Utils
 {
     public interface ITimeProvider
     {
-        DateTime Now();
+        DateTimeOffset Now();
 
         DateTime Today();
 
-        void SetCurrentTime(DateTime time);
+        void SetCurrentTime(DateTimeOffset time);
 
-        void SetCurrentTime(int year, int month, int day, int hours, int minutes = 0, int seconds = 0);
+        void SetCurrentTime(int year, int month, int day, int hours, TimeSpan offset, int minutes = 0, int seconds = 0);
     }
 
     public class SystemTimeProvider : ITimeProvider
     {
-        public DateTime Now()
+        public DateTimeOffset Now()
         {
-            return DateTime.Now;
+            return DateTimeOffset.Now;
         }
 
         public DateTime Today()
@@ -25,12 +25,12 @@ namespace Net.Teirlinck.Utils
             return DateTime.Today;
         }
 
-        public void SetCurrentTime(DateTime time)
+        public void SetCurrentTime(DateTimeOffset time)
         {
             throw new NotImplementedException($"Not implemented for {nameof(SystemTimeProvider)}");
         }
 
-        public void SetCurrentTime(int year, int month, int day, int hours, int minutes = 0, int seconds = 0)
+        public void SetCurrentTime(int year, int month, int day, int hours, TimeSpan offset, int minutes = 0, int seconds = 0)
         {
             throw new NotImplementedException($"Not implemented for {nameof(SystemTimeProvider)}");
         }
@@ -38,7 +38,7 @@ namespace Net.Teirlinck.Utils
 
     public class ManualTimeProvider : ITimeProvider
     {
-        private DateTime _currentTime;
+        private DateTimeOffset _currentTime;
 
         /// <summary>
         /// Default constructor initializes the current time to the current system time
@@ -46,22 +46,22 @@ namespace Net.Teirlinck.Utils
         /// </summary>
         public ManualTimeProvider()
         {
-            _currentTime = DateTime.Now;
+            _currentTime = DateTimeOffset.Now;
         }
 
-        public DateTime Now()
+        public DateTimeOffset Now()
         {
             return _currentTime;
         }
 
-        public void SetCurrentTime(DateTime time)
+        public void SetCurrentTime(DateTimeOffset time)
         {
             _currentTime = time;
         }
 
-        public void SetCurrentTime(int year, int month, int day, int hours, int minutes = 0, int seconds = 0)
+        public void SetCurrentTime(int year, int month, int day, int hours, TimeSpan offset, int minutes = 0, int seconds = 0)
         {
-            _currentTime = new DateTime(year, month, day, hours, minutes, seconds);
+            _currentTime = new DateTimeOffset(year, month, day, hours, minutes, seconds, offset);
         }
 
         public DateTime Today()
