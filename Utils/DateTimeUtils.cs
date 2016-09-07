@@ -131,11 +131,11 @@ namespace Net.Teirlinck.Utils
         /// <param name="date"></param>
         /// <param name="span"></param>
         /// <returns></returns>
-        public static DateTime Floor(this DateTime date, TimeSpan span)
+        public static DateTimeOffset Floor(this DateTimeOffset date, TimeSpan span)
         {
             long ticks = date.Ticks / span.Ticks;
 
-            return new DateTime(ticks * span.Ticks);
+            return new DateTimeOffset(ticks * span.Ticks, date.Offset);
         }
 
 

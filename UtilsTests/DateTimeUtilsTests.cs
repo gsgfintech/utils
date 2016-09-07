@@ -140,10 +140,25 @@ namespace UtilsTests
         [TestMethod]
         public void TestFloor()
         {
-            DateTime date = new DateTime(2016, 7, 25, 7, 58, 45, 654);
+            DateTimeOffset date = new DateTimeOffset(2016, 7, 25, 7, 58, 45, 654, new TimeSpan(8, 0, 0));
             TimeSpan span = new TimeSpan(0, 0, 1);
 
             Assert.IsTrue(date.Floor(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
+
+            date = new DateTimeOffset(2016, 7, 25, 7, 58, 46, 654, new TimeSpan(8, 0, 0));
+            span = new TimeSpan(0, 0, 5);
+
+            Assert.IsTrue(date.Floor(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
+
+            date = new DateTimeOffset(2016, 7, 25, 7, 58, 49, 654, new TimeSpan(8, 0, 0));
+            span = new TimeSpan(0, 0, 5);
+
+            Assert.IsTrue(date.Floor(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
+
+            date = new DateTimeOffset(2016, 7, 25, 7, 58, 50, 654, new TimeSpan(8, 0, 0));
+            span = new TimeSpan(0, 0, 5);
+
+            Assert.IsTrue(date.Floor(span) == new DateTime(2016, 7, 25, 7, 58, 50, 0));
         }
 
         [TestMethod]
