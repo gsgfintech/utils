@@ -26,7 +26,7 @@ namespace Net.Teirlinck.Utils
 
             DateTimeOffset dto = new DateTimeOffset(fivePm, offset);
 
-            if (dto.LocalDateTime > timeProvider.Now())
+            if (dto.UtcDateTime > timeProvider.Now().UtcDateTime)
                 dto = dto.AddDays(-1);
 
             return dto.LocalDateTime;
