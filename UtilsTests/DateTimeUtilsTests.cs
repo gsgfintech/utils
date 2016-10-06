@@ -9,7 +9,7 @@ namespace UtilsTests
     [TestClass]
     public class DateTimeUtilsTests
     {
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void TestGetFivePmYesterday()
         {
