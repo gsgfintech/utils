@@ -175,5 +175,17 @@ namespace Capital.GSG.FX.Utils.Core
 
             return new DateTime(ticks * span.Ticks);
         }
+
+        public static DateTime GetLastBusinessDayInHKT()
+        {
+            DateTime day = DateTimeOffset.Now.ToOffset(TimeSpan.FromHours(8)).Date;
+
+            if (day.DayOfWeek == DayOfWeek.Saturday)
+                day = day.AddDays(-1);
+            else if (day.DayOfWeek == DayOfWeek.Sunday)
+                day = day.AddDays(-2);
+
+            return day;
+        }
     }
 }
