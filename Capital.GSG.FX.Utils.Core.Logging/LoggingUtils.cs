@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
+using Microsoft.Extensions.Logging;
 
-namespace Capital.GSG.FX.Utils.Core
+namespace Capital.GSG.FX.Utils.Core.Logging
 {
     public static class LoggingUtils
     {

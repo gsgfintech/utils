@@ -97,5 +97,18 @@ namespace UtilsTests
             Assert.IsTrue(test.SubArray(1, secondMark)[0] == 1);
             Assert.IsTrue(double.IsNaN(test.SubArray(1, secondMark)[19]));
         }
+
+        [TestMethod]
+        public void TestSplitArray()
+        {
+            string[] arrayString = new string[] { "aa", "bb", "cc", "dd", "ee" };
+
+            List<string[]> split = arrayString.SplitArray(2);
+
+            Assert.IsNotNull(split);
+            Assert.IsTrue(split.Count == 3);
+            Assert.IsTrue(split.First().Length == 2);
+            Assert.IsTrue(split.Last().Length == 1);
+        }
     }
 }

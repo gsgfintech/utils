@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Capital.GSG.FX.Utils.Core
 {
@@ -40,6 +41,28 @@ namespace Capital.GSG.FX.Utils.Core
             int length = sourceArray.Length - index;
 
             return sourceArray.SubArray(index, length);
+        }
+
+        public static List<T[]> SplitArray<T>(this T[] sourceArray, int subArraySize)
+        {
+            if (sourceArray.IsNullOrEmpty())
+                return null;
+
+            List<T[]> result = new List<T[]>();
+
+            for (int i = 0; i < sourceArray.Length; i = i + subArraySize)
+            {
+                if (sourceArray.Length < i + subArraySize)
+                    subArraySize = sourceArray.Length - i;
+
+                T[] val = new T[subArraySize];
+
+                Array.Copy(sourceArray, i, val, 0, subArraySize);
+
+                result.Add(val);
+            }
+
+            return result;
         }
     }
 }
