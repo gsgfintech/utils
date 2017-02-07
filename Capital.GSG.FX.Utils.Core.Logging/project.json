@@ -3,11 +3,11 @@
   "copyright": "2017 GSG Limited",
   "description": "Capital.GSG.FX.Utils.Core.Logging",
   "language": "en",
-  "version": "1.0.0-*",
+  "version": "1.0.1-*",
 
   "dependencies": {
     "Microsoft.Extensions.Logging": "1.1.0",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.1"
   },
 
   "frameworks": {
