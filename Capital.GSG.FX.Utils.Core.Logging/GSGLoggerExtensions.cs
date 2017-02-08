@@ -1,13 +1,10 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using System;
 
 namespace Capital.GSG.FX.Utils.Core.Logging
 {
-    public static class LoggingUtils
+    public static class GSGLoggerExtensions
     {
-        public static ILoggerFactory LoggerFactory { get; } = new LoggerFactory();
-        public static ILogger CreateLogger<T>() => LoggerFactory.CreateLogger<T>();
-
         public static void Debug(this ILogger logger, string message)
         {
             logger.LogDebug(message);
