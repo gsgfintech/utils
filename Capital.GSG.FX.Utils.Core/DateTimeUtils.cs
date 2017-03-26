@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Capital.GSG.FX.Utils.Core
 {
@@ -121,6 +122,13 @@ namespace Capital.GSG.FX.Utils.Core
         {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
+        }
+
+        public static IEnumerable<DateTime> EachBusinessDay(DateTime from, DateTime thru)
+        {
+            var days = EachDay(from, thru);
+
+            return days?.Where(d => d.DayOfWeek != DayOfWeek.Saturday && d.DayOfWeek != DayOfWeek.Sunday);
         }
 
         /// <summary>

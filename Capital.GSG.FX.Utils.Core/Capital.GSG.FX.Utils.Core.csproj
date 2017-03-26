@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Capital.GSG.FX.Utils.Core</Description>
-    <Copyright>2016 GSG Limited</Copyright>
+    <Copyright>2016-2017 GSG Limited</Copyright>
     <AssemblyTitle>Capital.GSG.FX.Utils.Core</AssemblyTitle>
     <VersionPrefix>1.2.0</VersionPrefix>
     <TargetFrameworks>net46;netstandard1.5</TargetFrameworks>
@@ -13,6 +13,9 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.2.1</Version>
+    <Authors>GSG Limited</Authors>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">

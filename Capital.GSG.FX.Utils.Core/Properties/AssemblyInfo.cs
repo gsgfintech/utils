@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("GSG Limited")]
 [assembly: AssemblyProduct("Capital.GSG.FX.Utils.Core")]
 [assembly: AssemblyTrademark("")]
 
