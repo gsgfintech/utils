@@ -82,6 +82,13 @@ namespace Capital.GSG.FX.Utils.Core
                 new DateTimeOffset(endDate.Year, endDate.Month, endDate.Day, 17, 0, 0, estTz.GetUtcOffset(endDate)));
         }
 
+        public static TimeSpan GetNewYorkTimeUtcOffset(this DateTime dateInHKT)
+        {
+            TimeZoneInfo estTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+            return estTz.GetUtcOffset(dateInHKT);
+        }
+
         /// <summary>
         /// Gets the lower (item1) and upper (item2) boundaries of a NZD trading date specified in HKT. Starts at 2am in HK winter and 3am in HK summer
         /// </summary>

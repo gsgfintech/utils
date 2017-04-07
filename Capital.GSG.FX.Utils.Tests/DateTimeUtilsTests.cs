@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Net.Teirlinck.Utils;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-namespace UtilsTests
+namespace Capital.GSG.FX.Utils.Core.Tests
 {
     [TestClass]
     public class DateTimeUtilsTests
@@ -99,6 +99,18 @@ namespace UtilsTests
         }
 
         [TestMethod]
+        public void TestGetNewYorkTimeUtcOffset()
+        {
+            DateTime january = new DateTime(2015, 1, 15);
+
+            Assert.IsTrue(DateTimeUtils.GetNewYorkTimeUtcOffset(january) == TimeSpan.FromHours(-5));
+
+            DateTime july = new DateTime(2015, 7, 15);
+
+            Assert.IsTrue(DateTimeUtils.GetNewYorkTimeUtcOffset(july) == TimeSpan.FromHours(-4));
+        }
+
+        [TestMethod]
         public void TestGetTradingDayBoundariesDateTimeOffset()
         {
             DateTime january = new DateTime(2015, 1, 15);
@@ -135,6 +147,11 @@ namespace UtilsTests
             IEnumerable<DateTime> days = DateTimeUtils.EachDay(lower, upper);
 
             Assert.IsTrue(days?.Count() == 8);
+
+            days = null;
+            days = DateTimeUtils.EachBusinessDay(lower, upper);
+
+            Assert.IsTrue(days?.Count() <= 6);
         }
 
         [TestMethod]
