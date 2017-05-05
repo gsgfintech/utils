@@ -8,7 +8,7 @@
     <Authors>GSG Limited</Authors>
     <Company>GSG Limited</Company>
     <Description>Utils classes</Description>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace Capital.GSG.FX.Utils.Core
             return dt.AddSeconds(unixTimeStamp).ToLocalTime();
         }
 
-        public static DateTime GetFivePmYesterday(ITimeProvider timeProvider = null)
+        public static DateTimeOffset GetFivePmYesterday(ITimeProvider timeProvider = null)
         {
             if (timeProvider == null)
                 timeProvider = new SystemTimeProvider();
@@ -30,7 +30,7 @@ namespace Capital.GSG.FX.Utils.Core
             if (dto.UtcDateTime > timeProvider.Now().UtcDateTime)
                 dto = dto.AddDays(-1);
 
-            return dto.LocalDateTime;
+            return dto.ToLocalTime();
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace Capital.GSG.FX.Utils.Core.Tests
     [TestClass]
     public class DateTimeUtilsTests
     {
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void TestGetFivePmYesterday()
         {
