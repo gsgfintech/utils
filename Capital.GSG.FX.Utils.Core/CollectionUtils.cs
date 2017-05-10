@@ -66,20 +66,36 @@ namespace Capital.GSG.FX.Utils.Core
 
     public static class DictionaryUtils
     {
-        public static T TryGetValue<T>(this Dictionary<string, T> dict, string key)
+        public static TVal GetValueOrDefault<TKey, TVal>(this Dictionary<TKey, TVal> dict, TKey key)
         {
-            return dict.TryGetValue<T>(key, default(T));
+            return dict.GetValueOrDefault(key, default(TVal));
         }
 
-        public static T TryGetValue<T>(this Dictionary<string, T> dict, string key, T defaultVal)
+        public static TVal GetValueOrDefault<TKey, TVal>(this Dictionary<TKey, TVal> dict, TKey key, TVal defaultVal)
         {
-            if (string.IsNullOrEmpty(key))
-                return defaultVal;
-
             if (dict == null || !dict.ContainsKey(key))
                 return defaultVal;
 
             return dict[key];
+        }
+
+        public static bool TryGetValue<TKey, TVal>(this Dictionary<TKey, TVal> dict, TKey key, out TVal retVal)
+        {
+            return dict.TryGetValue(key, default(TVal), out retVal);
+        }
+
+        public static bool TryGetValue<TKey, TVal>(this Dictionary<TKey, TVal> dict, TKey key, TVal defaultVal, out TVal retVal)
+        {
+            if (dict == null || !dict.ContainsKey(key))
+            {
+                retVal = defaultVal;
+                return false;
+            }
+            else
+            {
+                retVal = dict[key];
+                return true;
+            }
         }
     }
 }

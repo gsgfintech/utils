@@ -17,7 +17,7 @@ namespace Capital.GSG.FX.Utils.Core.Tests
 
             TimeZoneInfo easternTz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"); // used to run check on the time
 
-            DateTime dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
+            DateTimeOffset dt = DateTimeUtils.GetFivePmYesterday(timeProvider);
 
             Assert.IsNotNull(dt);
 
