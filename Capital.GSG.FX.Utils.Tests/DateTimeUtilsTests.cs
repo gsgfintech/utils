@@ -179,7 +179,7 @@ namespace Capital.GSG.FX.Utils.Core.Tests
         }
 
         [TestMethod]
-        public void TestRoun()
+        public void TestRound()
         {
             DateTime date = new DateTime(2016, 7, 25, 7, 58, 45, 654);
             TimeSpan span = new TimeSpan(0, 0, 1);
@@ -197,6 +197,11 @@ namespace Capital.GSG.FX.Utils.Core.Tests
             dto = new DateTimeOffset(2016, 7, 25, 7, 58, 45, 454, TimeSpan.FromHours(8));
 
             Assert.IsTrue(dto.Round(span) == new DateTimeOffset(2016, 7, 25, 7, 58, 45, 0, TimeSpan.FromHours(8)));
+
+            date = new DateTime(2016, 7, 25, 7, 58, 46, 654);
+            span = new TimeSpan(0, 0, 5);
+
+            Assert.IsTrue(date.Round(span) == new DateTime(2016, 7, 25, 7, 58, 45, 0));
         }
 
         [TestMethod]
